@@ -4,7 +4,7 @@
 
 This project includes a project-scoped MCP configuration for Supabase in `.mcp.json`.
 
-### 1) Authenticate the MCP server
+### Authenticate the MCP server
 
 Run this in a regular terminal (not an IDE extension):
 
@@ -14,23 +14,27 @@ claude /mcp
 
 Then select the `supabase` server and choose `Authenticate`.
 
-### 2) Optional: install Supabase Agent Skills
+### Optional: install Supabase Agent Skills
 
 ```bash
 npx skills add supabase/agent-skills
 ```
 
-### 3) Project config
+## Supabase server credentials
 
-The MCP server config lives in `.mcp.json` and points to the Supabase project:
+The repository currently contains a browser-based frontend and does not have a backend or npm package manifest yet. A backend is required to use `@supabase/server`; do not put server secrets in `config.js` or any browser-delivered file.
 
-```json
-{
-  "mcpServers": {
-    "supabase": {
-      "type": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=bnprcvoouzujnmqypinw&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching%2Cfeedback%2Cnotebooks"
-    }
-  }
-}
+When setting up a Node.js backend, create its local environment file from the template and install the server package in the backend project:
+
+```bash
+cp .env.example .env
+npm install @supabase/server
+```
+
+The `.env.example` file contains the project URL, publishable key, JWKS URL, and an empty secret-key placeholder. Add the real `SUPABASE_SECRET_KEY` only to your ignored local `.env` or your hosting provider's secret environment settings. Never commit the secret key. For Supabase Edge Functions, these values are injected automatically, so you do not need to copy them into an `.env` file.
+
+Optional Supabase Server skill:
+
+```bash
+npx skills add supabase/server
 ```

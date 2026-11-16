@@ -31,7 +31,7 @@ cp .env.example .env
 npm install @supabase/server
 ```
 
-The `.env.example` file contains the project URL, publishable key, JWKS URL, and an empty secret-key placeholder. Add the real `SUPABASE_SECRET_KEY` only to your ignored local `.env` or your hosting provider's secret environment settings. Never commit the secret key. For Supabase Edge Functions, these values are injected automatically, so you do not need to copy them into an `.env` file.
+The `.env.example` file contains the project URL, publishable key, JWKS URL, an empty secret-key placeholder, and a direct Postgres connection-string template. Replace `[YOUR-PASSWORD]` in your local `.env` with the database password. Percent-encode any special characters in the password before inserting it into the URL. Keep `.env` private; never commit real passwords or the secret key. Use the database connection string only in trusted server-side code, never in browser/client code. For Supabase Edge Functions, Supabase injects the required environment values automatically.
 
 Optional Supabase Server skill:
 
